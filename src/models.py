@@ -91,15 +91,19 @@ class Students(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-           
         }
     
+
+#tabla de relacion para muchos a muchos
 class Enrollments(db.Model):
     __tablename__ = 'enrollments'
  
-
+    #conectamos con la tabla usando el ForeignKey
+    #necesitamos la clave foranea (la clave primaria de la tabla a la que nos conectamos)
+    #cuando hacemos una tabla de asociacion los ids de las tablas a las que nos conectamos van a ser tambien PRIMARY_KEY
     student_id: Mapped[int] = mapped_column(ForeignKey('students.id'), primary_key=True)
     courses_id: Mapped[int] = mapped_column(ForeignKey('courses.id'), primary_key=True)
+    
     #dato propio de la tabla Enrollments
     date: Mapped[datetime] = mapped_column(DateTime(), default=datetime.now)
 
